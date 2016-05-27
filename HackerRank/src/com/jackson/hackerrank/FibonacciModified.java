@@ -11,6 +11,7 @@ public class FibonacciModified {
         int b = in.nextInt();
         int n = in.nextInt();
         fibonacci(a,b,n);
+        in.close();
     }
     
     public static void fibonacci(int a, int b, int n) {
