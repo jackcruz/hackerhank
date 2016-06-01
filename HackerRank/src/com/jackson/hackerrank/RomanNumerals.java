@@ -10,12 +10,15 @@ public class RomanNumerals {
         Scanner in = new Scanner(System.in);
         //input int number representing the number of test cases to be run. Which is the number of roman numerals to be converted to decimal
         int r = in.nextInt();
+        //input int number representing the number of test cases to be run. Which is the number of decimal number to be converted to roman numerals
         int d = in.nextInt();
         for (int i = 0; i < r; i++) {
+            //reading r roman numerals
             String romanNumeral = in.next();
             System.out.println(romanToDecimal(romanNumeral));
         }
         for (int i = 0; i < d; i++) {
+            //reading d decimals
             int decimalNumber = in.nextInt();
             System.out.println(decimalToRoman(decimalNumber));
         }
