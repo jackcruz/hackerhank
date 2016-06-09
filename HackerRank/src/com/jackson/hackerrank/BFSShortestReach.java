@@ -1,8 +1,10 @@
 package com.jackson.hackerrank;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BFSShortestReach {
@@ -16,7 +18,7 @@ public class BFSShortestReach {
             int n = in.nextInt();
             for (int j = 1; j <= n; j++) {
                 Node node = new Node(j);
-                g.addNode(node);
+                g.addNode(j-1,node);
             }
             
             int m = in.nextInt();
@@ -24,20 +26,17 @@ public class BFSShortestReach {
             while (j < m) {
                 int x = in.nextInt();
                 int y = in.nextInt();
-                Node nodeX = g.getNode(x);
-                Node nodeY = g.getNode(y);
+                Node nodeX = g.getNode(x-1);
+                Node nodeY = g.getNode(y-1);
                 nodeX.addEdge(y);
                 nodeY.addEdge(x);
-                g.addNode(nodeX);
-                g.addNode(nodeY);
                 j++;
             }
             int s = in.nextInt();
-            g.bfsSearch(g.getNode(s));
+            g.bfsSearch(g.getNode(s-1));
             
-            for (Iterator iterator = g.nodes.keySet().iterator(); iterator.hasNext();) {
-                Integer id = (Integer)iterator.next();
-                Node node = g.nodes.get(id);
+            for (Iterator iterator = g.nodes.iterator(); iterator.hasNext();) {
+                Node node = (Node)iterator.next();
                 if (!node.id.equals(s)) {
                     System.out.print(node.distance + " ");
                 }
@@ -82,14 +81,10 @@ public class BFSShortestReach {
     }
     
     private static class Graph {
-        private HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
+        private List<Node> nodes = new ArrayList<Node>();
         
-        public void addNode(Node node) {
-            nodes.put(node.id, node);
-        }
-        
-        public boolean contains (Integer id) {
-            return nodes.containsKey(id);
+        public void addNode(int index, Node node) {
+            nodes.add(index, node);
         }
         
         public Node getNode(Integer id) {
@@ -107,7 +102,7 @@ public class BFSShortestReach {
                 
                 for (Iterator iterator = current.edges.keySet().iterator(); iterator.hasNext();) {
                     Integer id = (Integer) iterator.next();
-                    Node node = nodes.get(id);
+                    Node node = nodes.get(id-1);
                     if (node.distance == -1) {
                         node.distance = current.distance + 6;
                         queue.add(node);
